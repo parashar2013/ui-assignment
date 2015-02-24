@@ -1,16 +1,114 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Front-End/Web Development UI Assignment for Interviewees</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
-    <p>Hello world!</p>
+<html lang="en" data-framework="backbonejs">
+	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="data/allData.js"></script>
-    <script src="js/main.js"></script>
-  </body>
+        <title>Front-End/Web Development UI Assignment for Interviewees</title>
+	</head>
+	<body>
+		<section id="app-container">
+            <section id="app-container-body">
+                <header id="header">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <span class="navbar-brand">Github Commit Log</span>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav">
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </header>
+
+                <section id="commit-container">
+                </section>
+
+                <div class="show-more-container">
+                    <div class="btn-group" role="group" aria-label="...">
+                      <button type="button" class="page-buttons button-newest btn btn-default disabled">Newest</button>
+                      <button type="button" class="page-buttons button-newer btn btn-default disabled">Newer</button>
+                      <button type="button" class="page-buttons button-older btn btn-default">Older</button>
+                      <button type="button" class="page-buttons button-oldest btn btn-default">Oldest</button>
+                    </div>
+                </div>
+            </section>
+		</section>
+
+		<footer id="footer">
+			<p>Written by: Parashar Bhatt</p>
+		</footer>
+
+        <!-- Underscore templates -->
+		<script type="text/template" id="commit-template">
+            <span><img class="edit-img left pointer" src="img/edit-icon.png" width="16px" height="16px" title="Edit commit message"></span>
+            <span class="message left <% if (messageModified){ %>modified<% } %>">
+                <%- commit.truncatedMessage %>
+                <% if (truncated) { %>
+                    <span class="ellipses pointer">...</span>
+                <% } %>
+            </span>
+            <textarea class="editor left hidden" rows="4" cols="50"><%- commit.message %></textarea>
+            <span class="counts right">
+                Changes<br>
+                <span class="additions">+<%- stats.additions %></span><br>
+                <span class="deletions">-<%- stats.deletions %></span>
+            </span>
+            <span class="author clear-left"><%- commit.author.name %></span>
+            <span class="time-container left">
+                &nbsp;authored on: <span class="time"><% print(moment(commit.author.date).format('MMM Do YYYY, h:mm A')) %></span>
+            </span>
+            <span class="files-container clear-left">
+                <a href="#" class="files-title pointer" title="Show files">Changed Files (<%- files.length %>)</a>
+                <div class="files">
+                    <ul>
+                    <% _.each(files, function(file) { %>
+                        <li>
+                            <% if (file.patch) { %>
+                                <a href="#" title="View patch info"><%- file.filename %></a>
+                            <% } else { %>
+                                <span><%- file.filename %></span>
+                            <% } %>
+                            <span class="additions"> +<%- file.additions %></span>
+                            <span class="deletions"> -<%- file.deletions %></span>
+                            <% if (file.patch) { %>
+                            <pre class="patch"><%- file.patch %></pre>
+                            <% } %>
+                        </li>
+                    <% }); %>
+                    </ul>
+                </div>
+            </span>
+            <div class="clear"></div>
+		</script>
+
+		<script src="data/allData.js"></script>
+
+        <!-- libraries -->
+		<script src="lib/jquery.js"></script>
+		<script src="lib/underscore.js"></script>
+		<script src="lib/backbone.js"></script>
+		<script src="lib/moment.js"></script>
+
+        <!-- mvc -->
+		<script src="js/models/commit.js"></script>
+		<script src="js/collections/commits.js"></script>
+		<script src="js/views/commit-view.js"></script>
+		<script src="js/views/commits-view.js"></script>
+		<script src="js/views/app-view.js"></script>
+		<script src="js/routers/router.js"></script>
+		<script src="js/app.js"></script>
+	</body>
 </html>
