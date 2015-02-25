@@ -34,8 +34,10 @@ Using the UI you developed in Part 1, and the REST API you designed in Part 2, w
 
 ## USAGE
 
-You must start up the server to use the UI. It no longer uses the local js file. The server should come up on port 8080
+You must start up the server to use the UI. It no longer uses the local allData.js file. The server should come up on port 8080. The server has been tested with Python v2.7.6.
 
 Run the following command to start the server:
 
+```bash
 python server/server.py
+```
