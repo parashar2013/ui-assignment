@@ -36,7 +36,7 @@ var app = app || {};
                     self.$commitContainer.append(self.commitCollectionView.render().el);
                 },
                 error: function(){
-                    self.$el.find('.spinner').text("Error loading data");
+                    self.$el.find('.spinner').text("Error loading data. Is the server online?");
                     console.log('failed');
                 }
             });
