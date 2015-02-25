@@ -31,3 +31,11 @@ Deliverables should be a list of endpoints, their expected inputs (query strings
 **Note:** This section is entirely optional! Complete only if you're so inclined.
 
 Using the UI you developed in Part 1, and the REST API you designed in Part 2, write your own REST API implementation and have your UI talk to that API rather than the static data currently supplied
+
+## USAGE
+
+You must start up the server to use the UI. It no longer uses the local js file. The server should come up on port 8080
+
+Run the following command to start the server:
+
+python server/server.py
