@@ -15,24 +15,32 @@ var app = app || {};
 		},
 
 		initialize: function () {
-			this.$input = this.$('#new-todo');
-			this.$footer = this.$('#footer');
 			this.$commitContainer = this.$('#commit-container');
-
             this.$pageButtons = this.$('.page-buttons');
 
-			//this.listenTo(app.commits, 'add', this.test);
-
 			// Add commits from ALL_DATA to commits collection
-            var self = this;
+            /*var self = this;
             _.each(ALL_DATA, function(item) {
                 var m = new app.Commit(item);
                 app.commits.add(m);
+            });*/
+
+            var self = this;
+            app.commits.fetch({
+                data: {all: true},
+                success: function(){
+                    self.$el.find('.spinner').hide();
+
+                    self.commitCollectionView = new app.CommitCollectionView({collection: app.commits});
+
+                    self.$commitContainer.append(self.commitCollectionView.render().el);
+                },
+                error: function(){
+                    self.$el.find('.spinner').text("Error loading data");
+                    console.log('failed');
+                }
             });
 
-            this.commitCollectionView = new app.CommitCollectionView({collection: app.commits});
-
-            this.$commitContainer.append(this.commitCollectionView.render().el);
 		},
 
 		// does nothing right now
