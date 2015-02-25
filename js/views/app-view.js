@@ -101,7 +101,7 @@ var app = app || {};
             this.commitCollectionView.showingFrom = showingFrom;
             this.commitCollectionView.showingTo = showingTo;
             this.commitCollectionView.render();
-			window.scrollTo(0,0);
+			//window.scrollTo(0,0);
         }
 	});
 })(jQuery);
