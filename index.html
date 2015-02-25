@@ -62,6 +62,8 @@
                 <% } %>
             </span>
             <textarea class="editor left hidden" rows="4" cols="50"><%- commit.message %></textarea>
+            <button type="button" class="save btn btn-default hidden">Save</button>
+            <button type="button" class="cancel btn btn-default hidden">Cancel</button>
             <span class="counts right">
                 Changes<br>
                 <span class="additions">+<%- stats.additions %></span><br>

@@ -17,9 +17,10 @@ var app = app || {};
 			'click .ellipses': 'showFullMessage',
 			'click .edit-img': 'showEditMode',
 			'click .files-title': 'toggleFiles',
-			'keypress .editor': 'updateOnEnter',
+			'click .save': 'updateMessage',
+			'click .cancel': 'close',
 			'keydown .editor': 'revertOnEscape',
-			'blur .editor': 'close'
+			//'blur .editor': 'close'
 		},
 
 		initialize: function () {
@@ -52,6 +53,8 @@ var app = app || {};
 
             this.$el.find('.editor').val(this.model.commit.message);
             this.$el.find('.editor').removeClass('hidden');
+            this.$el.find('.save').removeClass('hidden');
+            this.$el.find('.cancel').removeClass('hidden');
             this.$el.find('.editor').focus();
         },
 
@@ -69,36 +72,30 @@ var app = app || {};
             this.$el.find('.files .patch').slideUp();
         },
 
-		isHidden: function () {
-			return this.model.get('completed') ?
-				app.CommitFilter === 'active' :
-				app.CommitFilter === 'completed';
-		},
-
 		// Close editing mode
 		close: function () {
             this.$el.find('.editor').addClass('hidden');
+            this.$el.find('.save').addClass('hidden');
+            this.$el.find('.cancel').addClass('hidden');
             this.$el.find('.message').show();
             this.$el.find('.edit-img').show();
 		},
 
-		updateOnEnter: function (e) {
-			if (e.which === ENTER_KEY) {
-                this.$el.find('.editor').addClass('hidden');
-				this.model.commit.message = this.$el.find('.editor').val();
-                this.model.set({messageModified : true});
-                this.$el.find('.message').show();
-                this.$el.find('.edit-img').show();
-                this.render();
-			}
+		updateMessage: function (e) {
+            this.$el.find('.editor').addClass('hidden');
+            this.$el.find('.save').addClass('hidden');
+            this.$el.find('.cancel').addClass('hidden');
+            this.model.commit.message = this.$el.find('.editor').val();
+            this.model.set({messageModified : true});
+            this.$el.find('.message').show();
+            this.$el.find('.edit-img').show();
+            this.render();
 		},
 
 		// Discard changes if ESC pressed
 		revertOnEscape: function (e) {
 			if (e.which === ESC_KEY) {
-                this.$el.find('.editor').addClass('hidden');
-                this.$el.find('.message').show();
-                this.$el.find('.edit-img').show();
+                this.close();
 			}
 		}
 	});
