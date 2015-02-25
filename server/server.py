@@ -1,3 +1,5 @@
+import os
+import sys
 import json
 from lib.dateutil import parser
 from lib.bottle import route, run, request, hook, response
@@ -6,7 +8,7 @@ from lib.bottle import route, run, request, hook, response
 version = "1"
 
 # Load commit data
-data_file = open('data/allData.json')
+data_file = open(os.path.join(sys.path[0], 'data/allData.json'))
 all_data = json.load(data_file)
 
 # Set id attribute for backbone.js
